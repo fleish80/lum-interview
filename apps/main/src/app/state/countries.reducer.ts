@@ -1,6 +1,6 @@
-import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { CountriesState } from "./countries.state";
+import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { CountriesActions } from "./countries.actions";
+import { CountriesState } from "./countries.state";
 
 const initialState: CountriesState = {
   countries: [],
