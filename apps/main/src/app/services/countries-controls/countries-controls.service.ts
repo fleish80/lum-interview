@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl } from '@angular/forms';
-import { debounceTime } from 'rxjs';
+import { debounceTime, skipWhile } from 'rxjs';
 import { CountriesStoreService } from '../countries-store/countries-store.service';
 
 @Injectable({
@@ -15,6 +15,7 @@ export class CountriesControlsService {
   constructor() {
     this.nameCtrl.valueChanges
       .pipe(
+        skipWhile(name => name.length < 2),
         debounceTime(500),
         takeUntilDestroyed())
       .subscribe(name => {
