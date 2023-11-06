@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 import { CountriesStoreService } from '../countries-store/countries-store.service';
-import { debounce, debounceTime } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

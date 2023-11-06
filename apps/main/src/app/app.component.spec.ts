@@ -1,25 +1,42 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
-import { RouterTestingModule } from '@angular/router/testing';
+import { countriesMock } from './mocks/countries.mock';
+import { DebugElement, signal } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { CountriesStoreService } from './services/countries-store/countries-store.service';
+import { CountriesControlsService } from './services/countries-controls/countries-controls.service';
 
 describe('AppComponent', () => {
+
+let component: AppComponent;
+let fixture: ComponentFixture<AppComponent>;
+let componentDebugElm: DebugElement;
+
   beforeEach(async () => {
+
+    const mockCountriesStoreService = {
+      countries: signal(countriesMock)
+    };
+
+    const mockCountriesControlsService = {
+      nameCtrl: new FormControl('', {nonNullable: true})
+    }
+
     await TestBed.configureTestingModule({
-      imports: [AppComponent, NxWelcomeComponent, RouterTestingModule],
+      imports: [AppComponent],
+      providers: [
+        {provide: CountriesStoreService, useValue: mockCountriesStoreService},
+        {provide: CountriesControlsService, useValue: mockCountriesControlsService}
+      ]
     }).compileComponents();
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    componentDebugElm = fixture.debugElement;
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Welcome main');
+  it('should be created', () => {
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'main'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('main');
-  });
+
 });

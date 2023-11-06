@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Country} from '../../models/country.model';
 
-const COUNTRIES_URL = 'https://restcountries.com/v3.1/name/';
+export const COUNTRIES_URL = 'https://restcountries.com/v3.1/name/';
 
 @Injectable({
   providedIn: 'root'

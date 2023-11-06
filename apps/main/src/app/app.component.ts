@@ -6,33 +6,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CountriesControlsService } from './services/countries-controls/countries-controls.service';
 import { CountriesStoreService } from './services/countries-store/countries-store.service';
-import { JsonPipe, NgStyle } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [MatFormFieldModule, MatAutocompleteModule, ReactiveFormsModule, ScrollingModule, MatInputModule, JsonPipe, NgStyle],
+  imports: [MatFormFieldModule, MatAutocompleteModule, ReactiveFormsModule, ScrollingModule, MatInputModule],
   selector: 'df-root',
   template: `
-
-<mat-form-field>
-	<input type="text"
-    placeholder="Pick one"
-    [formControl]="nameCtrl"
-    matInput
-    [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-    <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" [ngStyle]="{'height': '200px'}"
-      itemSize="10" >
-      <mat-option *cdkVirtualFor="let country of countries()"
-        [value]="country.name.common"
-        class="autocomplete-item">
-        {{country.name.common}}
-      </mat-option>
-    </cdk-virtual-scroll-viewport>
-  </mat-autocomplete>
-</mat-form-field>
-
-
+    <mat-form-field>
+      <input type="text" placeholder="Pick Country" [formControl]="nameCtrl" matInput [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+        <cdk-virtual-scroll-viewport class="scroll-viewport" itemSize="10" >
+          <mat-option *cdkVirtualFor="let country of countries()" [value]="country.name.common">
+            {{country.name.common}}
+          </mat-option>
+        </cdk-virtual-scroll-viewport>
+      </mat-autocomplete>
+    </mat-form-field>
   `,
   styles: [
     `
@@ -40,6 +29,10 @@ import { JsonPipe, NgStyle } from '@angular/common';
       padding-block-start: 50px;
       display: flex;
       justify-content: center;
+    }
+
+    .scroll-viewport {
+      height: 200px;
     }
     `
 
